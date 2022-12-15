@@ -1,0 +1,3 @@
+# must be installed as sudo
+pathlib
+cython

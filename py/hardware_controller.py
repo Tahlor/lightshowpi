@@ -390,22 +390,22 @@ def fade(from_test=False):
     """Fade lights in and out in sequence"""
     # Test fading in and out for each light configured in pwm mode
     if not from_test:
-        print "Press <CTRL>-C to stop"
+        print("Press <CTRL>-C to stop")
 
     if ccm:
-        print "custom channel mapping is being used"
-        print "multiple channels may display that the same time"
+        print( "custom channel mapping is being used")
+        print( "multiple channels may display that the same time")
 
     while True:
         for light in lights:
             if ccm:
                 for p in ccm_map[light]:
-                    print "channel %s : gpio pin number %d" % (str(p + 1), cm.hardware.gpio_pins[p])
+                    print( "channel %s : gpio pin number %d" % (str(p + 1), cm.hardware.gpio_pins[p]))
             else:
-                print "channel %s : gpio pin number %d" % (
-                    str(light + 1), cm.hardware.gpio_pins[light])
+                print( "channel %s : gpio pin number %d" % (
+                    str(light + 1), cm.hardware.gpio_pins[light]) )
 
-            print
+            print()
 
             if is_pin_pwm(light):
                 for _ in range(flashes):
@@ -418,7 +418,7 @@ def fade(from_test=False):
                         light_on(light, False, float(brightness) / _PWM_MAX)
                         time.sleep(sleep / _PWM_MAX)
             else:
-                print "channel %s not set to pwm mode" % light
+                print( "channel %s not set to pwm mode" % light)
 
         if from_test:
             return
@@ -427,22 +427,22 @@ def fade(from_test=False):
 def flash(from_test=False):
     """Flash lights in sequence"""
     if not from_test:
-        print "Press <CTRL>-C to stop"
+        print( "Press <CTRL>-C to stop")
 
     if ccm:
-        print "custom channel mapping is being used"
-        print "multiple channels may display that the same time"
+        print( "custom channel mapping is being used")
+        print( "multiple channels may display that the same time")
 
     while True:
         for light in lights:
             if ccm:
                 for p in ccm_map[light]:
-                    print "channel %s : gpio pin number %d" % (str(p + 1), cm.hardware.gpio_pins[p])
+                    print( "channel %s : gpio pin number %d" % (str(p + 1), cm.hardware.gpio_pins[p]))
             else:
-                print "channel %s : gpio pin number %d" % (
-                    str(light + 1), cm.hardware.gpio_pins[light])
+                print( "channel %s : gpio pin number %d" % (
+                    str(light + 1), cm.hardware.gpio_pins[light]))
 
-            print
+            print()
 
             for _ in range(flashes):
                 light_on(light)
@@ -463,7 +463,7 @@ def cylon():
     time.sleep(1)
 
     # working loop
-    print "Press <CTRL>-C to stop"
+    print( "Press <CTRL>-C to stop")
     while True:
         # here we just loop over the gpio pins and do something with them
         # except the last one
@@ -564,7 +564,7 @@ def random_pattern():
         light_group[-1].setDaemon(True)
         light_group[-1].start()
 
-    print "press <ctrl-c> to exit"
+    print( "press <ctrl-c> to exit")
     while True:
         time.sleep(.1)
 
@@ -629,17 +629,17 @@ def dance():
 
 def step():
     """Test fading in and out for each light configured in pwm mode"""
-    print "Press <CTRL>-C to stop"
+    print( "Press <CTRL>-C to stop")
     while True:
         for light in lights:
-            print "channel %s " % light
+            print( "channel %s " % light)
             for brightness in range(0, _PWM_MAX):
                 # fade in
                 light_on(light, False, float(brightness) / _PWM_MAX)
                 time.sleep(sleep / _PWM_MAX)
 
         for light in reversed(lights):
-            print "channel %s " % light
+            print( "channel %s " % light)
             for brightness in range(_PWM_MAX - 1, -1, -1):
                 # fade out
                 if is_pin_pwm(light):
@@ -652,27 +652,27 @@ def step():
 def test():
     model, header = Platform.get_model()
 
-    print "We are going to do some basic tests to make sure"
-    print "your hardware is working as expected."
-    print "Raspberry Pi %s" % model
-    print "You have %s channels defined" % str(cm.hardware.gpio_len)
-    print "They are using gpio pins %s" % ", ".join(map(str, cm.hardware.gpio_pins))
-    print "You have configured your relays as active %s" % (
-        "low" if cm.hardware.active_low_mode else "high")
-    print "pin_modes are %s " % ", ".join(cm.hardware.pin_modes)
-    print "custom_channel_mapping %s being used" % ("is" if ccm else "is not")
+    print( "We are going to do some basic tests to make sure")
+    print( "your hardware is working as expected.")
+    print( "Raspberry Pi %s" % model)
+    print( "You have %s channels defined" % str(cm.hardware.gpio_len))
+    print( "They are using gpio pins %s" % ", ".join(map(str, cm.hardware.gpio_pins)))
+    print( "You have configured your relays as active %s" % (
+        "low" if cm.hardware.active_low_mode else "high"))
+    print( "pin_modes are %s " % ", ".join(cm.hardware.pin_modes))
+    print( "custom_channel_mapping %s being used" % ("is" if ccm else "is not"))
 
     if ccm:
-        print "[%s]" % ", ".join(map(str, cm.audio_processing.custom_channel_mapping))
+        print( "[%s]" % ", ".join(map(str, cm.audio_processing.custom_channel_mapping)))
 
-    print "\nFirst we are going to flash each light in order to see if they are all working"
+    print( "\nFirst we are going to flash each light in order to see if they are all working")
 
     raw_input("Press Enter to continue....")
 
     flash(True)
 
-    print "If everything went correctly you should have seen each of your channels"
-    print "flash one at a time in order of assignment."
+    print( "If everything went correctly you should have seen each of your channels")
+    print( "flash one at a time in order of assignment.")
 
     while True:
         answer = raw_input("Did you see all channels flash in order? (yes/no) ").lower()
@@ -681,25 +681,25 @@ def test():
 
         if answer in yes or answer in no:
             if answer in yes:
-                print "Great, your basic config is ready for you to start with\n\n"
+                print( "Great, your basic config is ready for you to start with\n\n")
 
                 return
 
             if answer in no:
-                print "Lets make sure you're using the correct gpio pins"
-                print "Here is what the %s header looks like\n" % model
-                print header
-                print
-                print "Make sure you are using the correct pins as listed above"
+                print( "Lets make sure you're using the correct gpio pins")
+                print( "Here is what the %s header looks like\n" % model)
+                print( header)
+                print()
+                print( "Make sure you are using the correct pins as listed above")
 
                 if ccm:
-                    print "Disable custom channel mapping to help with debugging your config"
+                    print( "Disable custom channel mapping to help with debugging your config")
 
-                print "After you have made these corrections please rerun this test\n\n"
+                print( "After you have made these corrections please rerun this test\n\n")
 
                 return
 
-        print "Please answer yes or no"
+        print( "Please answer yes or no")
 
 
 def main():

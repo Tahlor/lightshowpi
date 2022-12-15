@@ -3,6 +3,9 @@
 # Installation framework for lightshowPi
 #
 # Support for each individual distribution is 
+#sudo pip install --upgrade setuptools
+#sudo pip install cython
+
 INSTALL_DIR="$( cd $(dirname $0) ; pwd -P )"
 BUILD_DIR=${INSTALL_DIR}/build_dir
 
@@ -124,7 +127,7 @@ done
 
 log Installing rpi-audio-levels...
 pip install git+https://tom_slick@bitbucket.org/tom_slick/rpi-audio-levels.git
-verify "Installation of rpi-audio-levels failed"
+# verify "Installation of rpi-audio-levels failed"
 
 # Optionally add a line to /etc/sudoers
 if [ -f /etc/sudoers ]; then
