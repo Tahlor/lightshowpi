@@ -1,3 +1,7 @@
+*.log
+*.xml
+.idea/
+
 # Ignore decoder.py and fileinfo.py (if installed locally)
 decoder.py
 fileinfo.py
@@ -12,9 +16,5 @@ install.log
 # Ignore Other Dev Files
 sftp-config.json
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 # Ignore Dolphin View settings files
 .directory
